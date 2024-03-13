@@ -1,0 +1,32 @@
+{
+  "data": {
+    "children": [
+      {
+        "data": {
+          "id": "abc123",
+          "title": "Sample Post Title",
+          "author": "reddit_user1",
+          "subreddit": "subreddit",
+          "created_utc": 1234567890,
+          "score": 100,
+          "num_comments": 10,
+          "thumbnail": "https://example.com/thumbnail.jpg",
+          "permalink": "/r/subreddit/comments/abc123/sample_post_title/"
+        }
+      },
+      {
+        "data": {
+          "id": "def456",
+          "title": "Another Sample Post Title",
+          "author": "reddit_user2",
+          "subreddit": "subreddit",
+          "created_utc": 1234567890,
+          "score": 100,
+          "num_comments": 10,
+          "thumbnail": "https://example.com/thumbnail.jpg",
+          "permalink": "/r/subreddit/comments/def456/another_sample_post_title/"
+        }
+      }
+    ]
+  }
+}
