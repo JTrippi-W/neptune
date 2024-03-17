@@ -1,0 +1,43 @@
+import { useParams } from 'react-router-dom';
+import { useGetPostAndCommentsQuery } from '../../api/redditApi';
+import { safeFormatDistanceToNow } from '../../utils/safeFormatDistanceToNow';
+import Comments from '../comments/Comments';
+
+export const Post = () => {
+  const { encodedPermalink } = useParams();
+  const permalink = decodeURIComponent(encodedPermalink);
+  const {
+    data,
+    isLoading: isPostLoading,
+    isSuccess: isPostSuccess,
+    isError: isPostError,
+    error: postError
+  } = useGetPostAndCommentsQuery(permalink);
+
+  if (isPostLoading || !data.post) return <div data-testid="post-loading">Loading...</div>;
+  if (isPostError)
+    return (
+      <div data-testid="error-message">
+        Error occurred: {postError.message || 'An unknown error has occurred'}
+      </div>
+    );
+
+  const { post, comments } = data;
+  return (
+    <div>
+      <section>
+        <h2 data-testid="post-title">{post.title}</h2>
+        <p>
+          Posted by {post.author} in {post.subreddit}
+        </p>
+        <p>{safeFormatDistanceToNow(post?.created_utc)} ago</p>
+        {post.selftext && <p>{post.selftext}</p>}
+        {/* Display image if it exists */}
+        {post.url && post.url.includes('jpg') && <img src={post.url} alt={post.title} />}
+        {/* Display comments if they exist */}
+        {isPostLoading && <div data-testid="comments-loading">Loading comments...</div>}
+        {isPostSuccess && <Comments comments={comments} />}
+      </section>
+    </div>
+  );
+};
