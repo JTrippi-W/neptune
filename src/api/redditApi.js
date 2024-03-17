@@ -12,8 +12,13 @@ export const redditApi = createApi({
     getSubredditPosts: builder.query({
       query: (subreddit) => `r/${subreddit}/hot.json`
     }),
-    getCommentsForPost: builder.query({
-      query: (subreddit, postId) => `r/${subreddit}/comments/${postId}.json`
+    getPostAndComments: builder.query({
+      query: (permalink) => `${permalink}.json`,
+      transformResponse: (response) => {
+        const postData = response[0]?.data?.children?.[0]?.data;
+        const commentsData = response[1]?.data?.children.map((child) => child.data);
+        return { post: postData, comments: commentsData };
+      }
     }),
     getSearchResults: builder.query({
       query: (searchTerm) => `search.json?q=${searchTerm}`
@@ -24,6 +29,6 @@ export const redditApi = createApi({
 export const {
   useGetPopularPostsQuery,
   useGetSubredditPostsQuery,
-  useGetCommentsForPostQuery,
+  useGetPostAndCommentsQuery,
   useGetSearchResultsQuery
 } = redditApi;
