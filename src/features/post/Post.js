@@ -3,7 +3,7 @@ import { useGetPostAndCommentsQuery } from '../../api/redditApi';
 import { safeFormatDistanceToNow } from '../../utils/safeFormatDistanceToNow';
 import Comments from '../comments/Comments';
 
-export const Post = () => {
+const Post = () => {
   const { encodedPermalink } = useParams();
   const permalink = decodeURIComponent(encodedPermalink);
   const {
@@ -41,3 +41,5 @@ export const Post = () => {
     </div>
   );
 };
+
+export default Post;
