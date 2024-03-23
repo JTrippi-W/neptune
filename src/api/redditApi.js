@@ -6,11 +6,8 @@ export const redditApi = createApi({
     baseUrl: 'https://www.reddit.com/'
   }),
   endpoints: (builder) => ({
-    getPopularPosts: builder.query({
-      query: () => `r/popular.json`
-    }),
     getSubredditPosts: builder.query({
-      query: (subreddit) => `r/${subreddit}/hot.json`
+      query: (subreddit = 'popular') => `r/${subreddit || 'popular'}.json`
     }),
     getPostAndComments: builder.query({
       query: (permalink) => `${permalink}.json`,
@@ -26,9 +23,5 @@ export const redditApi = createApi({
   })
 });
 
-export const {
-  useGetPopularPostsQuery,
-  useGetSubredditPostsQuery,
-  useGetPostAndCommentsQuery,
-  useGetSearchResultsQuery
-} = redditApi;
+export const { useGetSubredditPostsQuery, useGetPostAndCommentsQuery, useGetSearchResultsQuery } =
+  redditApi;
