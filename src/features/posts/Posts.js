@@ -1,20 +1,30 @@
-import { useGetPopularPostsQuery } from '../../api/redditApi';
+import { useSelector } from 'react-redux';
+import { useGetSubredditPostsQuery } from '../../api/redditApi';
 import { Link } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
 
-export const Posts = () => {
-  const { data: posts, isLoading, isSuccess, isError, error } = useGetPopularPostsQuery();
+const Posts = () => {
+  const subreddit = useSelector((state) => state.subreddit);
 
-  if (isError)
+  const {
+    data: posts,
+    isLoading,
+    isSuccess,
+    isError,
+    error
+  } = useGetSubredditPostsQuery(subreddit);
+
+  if (isError) {
     return (
       <div data-testid="error-message">
-        Error occurred: {error.message || 'An unknown error has occurred'}
+        Error occurred: {error?.data?.message || 'An unknown error has occurred'}
       </div>
     );
+  }
 
   return (
     <div>
-      <h1>Popular Posts</h1>
+      <h1>{subreddit ? `r/${subreddit}` : 'Popular Posts'}</h1>
 
       {isLoading &&
         Array.from({ length: 10 }).map((_, i) => (
@@ -41,3 +51,5 @@ export const Posts = () => {
     </div>
   );
 };
+
+export default Posts;
