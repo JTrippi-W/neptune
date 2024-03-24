@@ -37,7 +37,11 @@ const SubredditAutocomplete = () => {
       case 'Enter':
         e.preventDefault();
         if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
+          // User has selected a suggestion with the keyboard
           selectSubreddit(suggestions[highlightedIndex]);
+        } else if (localSearchTerm.trim() !== '') {
+          // No suggestion is highlighted, but the user has typed and hit enter
+          selectSubreddit(localSearchTerm);
         }
         break;
       default:
