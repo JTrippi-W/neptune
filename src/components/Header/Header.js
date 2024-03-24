@@ -3,17 +3,12 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSelectedSubreddit } from '../../features/selectedSubreddit/selectedSubredditSlice';
 import { setSearchTerm } from '../../features/searchTerm/searchTermSlice';
+import SubredditAutocomplete from './SubredditAutoComplete';
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [localSearchTerm, setLocalSearchTerm] = useState('');
-
-  const handleSubredditChange = (e) => {
-    const subreddit = e.target.value;
-    dispatch(setSelectedSubreddit(e.target.value));
-    navigate(`/r/${encodeURIComponent(subreddit)}`);
-  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -30,15 +25,7 @@ const Header = () => {
   return (
     <header>
       <h1>Neptune</h1>
-      <select onChange={handleSubredditChange} defaultValue="Popular">
-        <option value="Popular" disabled>
-          Popular
-        </option>
-        <option value="AskReddit">AskReddit</option>
-        <option value="JavaScript">JavaScript</option>
-        <option value="ReactJS">ReactJS</option>
-        <option value="ReduxJS">ReduxJS</option>
-      </select>
+      <SubredditAutocomplete />
       <form onSubmit={handleSearch}>
         <input
           type="text"
