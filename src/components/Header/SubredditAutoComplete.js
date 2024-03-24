@@ -63,7 +63,7 @@ const SubredditAutocomplete = () => {
         value={localSearchTerm}
         onChange={handleSubredditInputChange}
         onKeyDown={handleKeyDown}
-        placeholder="Search for a subreddit"
+        placeholder="Enter a subreddit name"
       />
       {suggestions.length > 0 && (
         <ul>
