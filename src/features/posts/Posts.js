@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useGetSubredditPostsQuery } from '../../api/redditApi';
 import { Link } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
+import useRetryCountdown from '../../utils/useRetryCountdown';
 
 const Posts = () => {
   const subreddit = useSelector((state) => state.subreddit);
@@ -11,13 +12,53 @@ const Posts = () => {
     isLoading,
     isSuccess,
     isError,
-    error
+    error,
+    refetch
   } = useGetSubredditPostsQuery(subreddit);
+
+  const { countdown, retryAvailable, setRetryAvailable, progress } = useRetryCountdown(isError);
+
+  const handleRetry = () => {
+    if (retryAvailable) {
+      refetch();
+      setRetryAvailable(false);
+    }
+  };
 
   if (isError) {
     return (
       <div data-testid="error-message">
-        Error occurred: {error?.data?.message || 'An unknown error has occurred'}
+        <p>Error occurred: {error?.data?.message || 'An unknown error has occurred'}</p>
+        <p>
+          The server could not find the subreddit, or it does not exist. Wait to retry, or change
+          what is typed.
+        </p>
+        <div>
+          {!retryAvailable && (
+            <div
+              style={{ width: '100%', backgroundColor: '#ccc' }}
+              role="progressbar"
+              aria-valuenow={progress}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuetext={`Retry available in ${countdown} seconds`}>
+              <div
+                style={{
+                  width: `${progress}%`,
+                  height: '20px',
+                  backgroundColor: 'red'
+                }}>
+                {/* Visually hidden text for screen readers */}
+                <span style={{ visibility: 'hidden' }}>Retry available in {countdown} seconds</span>
+              </div>
+            </div>
+          )}
+          {retryAvailable ? (
+            <button onClick={handleRetry}>Retry</button>
+          ) : (
+            <span>Retry in {countdown} seconds</span>
+          )}
+        </div>
       </div>
     );
   }
