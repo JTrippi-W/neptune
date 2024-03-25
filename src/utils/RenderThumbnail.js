@@ -1,4 +1,6 @@
-const RenderThumbnail = ({ post }) => {
+import PropTypes from 'prop-types';
+
+const RenderThumbnail = (post) => {
   let thumbnailUrl = post.thumbnail && post.thumbnail !== 'self' ? post.thumbnail : post.url;
 
   if (!thumbnailUrl && /\.(jpeg|jpg|gif|png)$/.test(post.url)) {
@@ -19,6 +21,15 @@ const RenderThumbnail = ({ post }) => {
   } else {
     return <p>Just a title.</p>;
   }
+};
+
+RenderThumbnail.propTypes = {
+  post: PropTypes.shape({
+    thumbnail: PropTypes.string.isRequired,
+    url: PropTypes.string,
+    title: PropTypes.string,
+    selftext: PropTypes.string
+  })
 };
 
 export default RenderThumbnail;

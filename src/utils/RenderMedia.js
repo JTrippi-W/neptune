@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const RenderMedia = ({ post }) => {
   if (post.is_video && post.media && post.media.reddit_video) {
     return (
@@ -15,6 +17,19 @@ const RenderMedia = ({ post }) => {
 
   // media type not recognized
   return null;
+};
+
+RenderMedia.propTypes = {
+  post: PropTypes.shape({
+    is_video: PropTypes.bool,
+    media: PropTypes.shape({
+      reddit_video: PropTypes.shape({
+        fallback_url: PropTypes.string
+      })
+    }),
+    url: PropTypes.string,
+    title: PropTypes.string.isRequired
+  })
 };
 
 export default RenderMedia;
