@@ -1,4 +1,4 @@
-const RenderThumbnail = (post) => {
+const RenderThumbnail = ({ post }) => {
   let thumbnailUrl = post.thumbnail && post.thumbnail !== 'self' ? post.thumbnail : post.url;
 
   if (!thumbnailUrl && /\.(jpeg|jpg|gif|png)$/.test(post.url)) {
