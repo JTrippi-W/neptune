@@ -79,7 +79,7 @@ const Posts = () => {
             <li key={post.data.id}>
               <h3>{post.data.title}</h3>
               {/* Render a thumbnail if the post has one */}
-              {RenderThumbnail(post.data)}
+              <RenderThumbnail post={post.data} />
               <p>
                 Posted by <b>{post.data.author}</b> in <b>{post.data.subreddit}</b>
               </p>
