@@ -66,8 +66,6 @@ const Posts = () => {
 
   return (
     <div>
-      <h1>{subreddit ? `r/${subreddit}` : 'Popular Posts'}</h1>
-
       {isLoading &&
         Array.from({ length: 10 }).map((_, i) => (
           <SkeletonLoader key={i} data-testid={`skeleton-loader-${i}`} />

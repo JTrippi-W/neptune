@@ -26,6 +26,7 @@ const Header = () => {
     <header>
       <h1>Neptune</h1>
       <SubredditAutocomplete />
+      <p>or</p>
       <form onSubmit={handleSearch}>
         <input
           type="text"
