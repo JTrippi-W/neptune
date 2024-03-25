@@ -3,7 +3,7 @@ import { useGetSubredditPostsQuery } from '../../api/redditApi';
 import { Link } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
 import useRetryCountdown from '../../utils/useRetryCountdown';
-import renderThumbnail from '../../utils/renderThumbnail';
+import RenderThumbnail from '../../utils/RenderThumbnail';
 
 const Posts = () => {
   const subreddit = useSelector((state) => state.subreddit);
@@ -79,7 +79,7 @@ const Posts = () => {
             <li key={post.data.id}>
               <h3>{post.data.title}</h3>
               {/* Render a thumbnail if the post has one */}
-              {renderThumbnail(post.data)}
+              {RenderThumbnail(post.data)}
               <p>
                 Posted by <b>{post.data.author}</b> in <b>{post.data.subreddit}</b>
               </p>
