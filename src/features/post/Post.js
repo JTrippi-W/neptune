@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useGetPostAndCommentsQuery } from '../../api/redditApi';
 import { safeFormatDistanceToNow } from '../../utils/safeFormatDistanceToNow';
 import Comments from '../comments/Comments';
+import RenderMedia from '../../utils/RenderMedia';
 
 const Post = () => {
   const { encodedPermalink } = useParams();
@@ -31,9 +32,9 @@ const Post = () => {
           Posted by {post.author} in {post.subreddit}
         </p>
         <p>{safeFormatDistanceToNow(post?.created_utc)} ago</p>
-        {post.selftext && <p>{post.selftext}</p>}
         {/* Display image if it exists */}
-        {post.url && post.url.includes('jpg') && <img src={post.url} alt={post.title} />}
+        <RenderMedia post={post} />
+        {post.selftext && <p>{post.selftext}</p>}
         {/* Display comments if they exist */}
         {isPostLoading && <div data-testid="comments-loading">Loading comments...</div>}
         {isPostSuccess && <Comments comments={comments} />}
