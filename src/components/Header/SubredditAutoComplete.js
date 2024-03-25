@@ -1,15 +1,22 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSelectedSubreddit } from '../../features/selectedSubreddit/selectedSubredditSlice';
 import { subredditsList } from '../../utils/subredditList';
 
-const SubredditAutocomplete = () => {
+const SubredditAutoComplete = () => {
+  const inputRef = useRef(null);
   const [localSearchTerm, setLocalSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const currentSubreddit = useSelector((state) => state.selectedSubreddit);
+
+  // The input is used as a title when the subreddit changes which can be edited in between
+  useEffect(() => {
+    setLocalSearchTerm(currentSubreddit);
+  }, [currentSubreddit]);
 
   const handleSubredditInputChange = (e) => {
     const userInput = e.target.value;
@@ -49,20 +56,31 @@ const SubredditAutocomplete = () => {
     }
   };
 
+  const handleBlur = () => {
+    setLocalSearchTerm(currentSubreddit);
+  };
+
   const selectSubreddit = (subreddit) => {
     dispatch(setSelectedSubreddit(subreddit));
     navigate(`/r/${encodeURIComponent(subreddit)}`);
-    setLocalSearchTerm('');
+    setLocalSearchTerm(subreddit);
     setSuggestions([]);
+
+    if (inputRef.current) {
+      inputRef.current.blur(); // Remove focus from the input
+    }
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <span>r/</span>
       <input
+        ref={inputRef}
         type="text"
         value={localSearchTerm}
         onChange={handleSubredditInputChange}
         onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
         placeholder="Enter a subreddit name"
       />
       {suggestions.length > 0 && (
@@ -84,4 +102,4 @@ const SubredditAutocomplete = () => {
   );
 };
 
-export default SubredditAutocomplete;
+export default SubredditAutoComplete;
