@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSelectedSubreddit } from '../../features/selectedSubreddit/selectedSubredditSlice';
+import { setSearchTerm } from '../../features/searchTerm/searchTermSlice';
 import { subredditsList } from '../../utils/subredditList';
 
 const SubredditAutoComplete = () => {
@@ -62,6 +63,7 @@ const SubredditAutoComplete = () => {
 
   const selectSubreddit = (subreddit) => {
     dispatch(setSelectedSubreddit(subreddit));
+    dispatch(setSearchTerm(''));
     navigate(`/r/${encodeURIComponent(subreddit)}`);
     setLocalSearchTerm(subreddit);
     setSuggestions([]);
