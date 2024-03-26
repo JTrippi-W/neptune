@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
 const RenderThumbnail = ({ post }) => {
-  const isValidThumbnail =
-    post.thumbnail && !['self', 'default', 'image', 'nsfw'].includes(post.thumbnail);
-
-  const isDirectImage = /\.(jpeg|jpg|gif|png)$/.test(post.url);
-
   let imageUrl = null;
-  if (isValidThumbnail) {
+
+  // Check for high-quality images first
+  if (post.preview && post.preview.images && post.preview.images.length > 0) {
+    imageUrl = post.preview.images[0].source.url;
+  } else if (post.thumbnail && !['self', 'default', 'image', 'nsfw'].includes(post.thumbnail)) {
+    // Use reddit's thumbnail
     imageUrl = post.thumbnail;
   } else if (
     post.is_video &&
@@ -17,16 +17,23 @@ const RenderThumbnail = ({ post }) => {
   ) {
     // Use scrubber_media_url for videos without a thumbnail
     imageUrl = post.media.reddit_video.scrubber_media_url;
-  } else if (isDirectImage) {
+  } else if (/\.(jpeg|jpg|gif|png)$/.test(post.url)) {
+    // Direct image URL
     imageUrl = post.url;
   }
 
   if (imageUrl) {
-    return <img src={imageUrl} alt={`Preview for ${post.title}`} loading="lazy" />;
+    const unescapedImageUrl = unescapeHtml(imageUrl);
+    return <img src={unescapedImageUrl} alt={`Preview for ${post.title}`} loading="lazy" />;
   }
 
   return null;
 };
+
+// Utility to unescape HTML entities in URLs
+function unescapeHtml(unsafe) {
+  return unsafe.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+}
 
 RenderThumbnail.propTypes = {
   post: PropTypes.shape({
@@ -38,6 +45,15 @@ RenderThumbnail.propTypes = {
       reddit_video: PropTypes.shape({
         scrubber_media_url: PropTypes.string
       })
+    }),
+    preview: PropTypes.shape({
+      images: PropTypes.arrayOf(
+        PropTypes.shape({
+          source: PropTypes.shape({
+            url: PropTypes.string
+          })
+        })
+      )
     })
   }).isRequired
 };
