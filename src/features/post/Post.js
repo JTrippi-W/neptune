@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useGetPostAndCommentsQuery } from '../../api/redditApi';
 import Comments from '../comments/Comments';
 import RenderMedia from '../../utils/RenderMedia';
-import moment from 'moment';
+import { formatDistanceToNow } from 'date-fns';
 
 const Post = () => {
   const { encodedPermalink } = useParams();
@@ -32,7 +32,7 @@ const Post = () => {
         <p>
           Posted by {post.author} in {post.subreddit}
         </p>
-        <p>{moment.unix(post.created_utc).fromNow()}</p>
+        <p>{formatDistanceToNow(post.created_utc * 1000)}</p>
         {/* Display image if it exists */}
         <RenderMedia post={post} />
         {post.selftext && <p>{post.selftext}</p>}
