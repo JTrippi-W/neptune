@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { redditApi } from '../api/redditApi';
 import selectedSubredditReducer from '../features/selectedSubreddit/selectedSubredditSlice';
-import searchTermReducer from '../features/searchTerm/searchTermSlice';
+import searchTermReducer from '../features/SearchResults/searchTermSlice';
 
 export const store = configureStore({
   reducer: {

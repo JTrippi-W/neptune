@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSelectedSubreddit } from '../../features/selectedSubreddit/selectedSubredditSlice';
-import { setSearchTerm } from '../../features/searchTerm/searchTermSlice';
+import { setSearchTerm } from '../../features/SearchResults/searchTermSlice';
 import { subredditsList } from '../../utils/subredditList';
 
 const SubredditAutoComplete = () => {

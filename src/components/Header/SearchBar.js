@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setSearchTerm } from '../../features/searchTerm/searchTermSlice';
+import { setSearchTerm } from '../../features/SearchResults/searchTermSlice';
 import { setSelectedSubreddit } from '../../features/selectedSubreddit/selectedSubredditSlice';
 
 const SearchBar = () => {
