@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useGetPostAndCommentsQuery } from '../../api/redditApi';
-import { safeFormatDistanceToNow } from '../../utils/safeFormatDistanceToNow';
 import Comments from '../comments/Comments';
 import RenderMedia from '../../utils/RenderMedia';
+import moment from 'moment';
 
 const Post = () => {
   const { encodedPermalink } = useParams();
@@ -15,11 +15,12 @@ const Post = () => {
     error: postError
   } = useGetPostAndCommentsQuery(permalink);
 
-  if (isPostLoading || !data.post) return <div data-testid="post-loading">Loading...</div>;
+  if (isPostLoading) return <div data-testid="post-loading">Loading...</div>;
+
   if (isPostError)
     return (
       <div data-testid="error-message">
-        Error occurred: {postError.message || 'An unknown error has occurred'}
+        Error occurred: {postError?.data?.message || 'An unknown error has occurred'}
       </div>
     );
 
@@ -31,7 +32,7 @@ const Post = () => {
         <p>
           Posted by {post.author} in {post.subreddit}
         </p>
-        <p>{safeFormatDistanceToNow(post?.created_utc)} ago</p>
+        <p>{moment.unix(post.created_utc).fromNow()}</p>
         {/* Display image if it exists */}
         <RenderMedia post={post} />
         {post.selftext && <p>{post.selftext}</p>}
