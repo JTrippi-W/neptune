@@ -1,9 +1,8 @@
 import { useSelector } from 'react-redux';
 import { useGetSearchResultsQuery } from '../../api/redditApi';
-import { Link } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
 import useRetryCountdown from '../../utils/useRetryCountdown';
-import RenderThumbnail from '../../utils/RenderThumbnail';
+import SearchResultItem from './SearchResultItem';
 
 const SearchResults = () => {
   const searchTerm = useSelector((state) => state.search);
@@ -70,20 +69,11 @@ const SearchResults = () => {
 
       {isSuccess && (
         <ul>
-          {searchResults?.data.children.map((result) => {
+          {searchResults?.data.children.map((result) => (
             <li key={result.data.id}>
-              <h3>{result.data.title}</h3>
-              <RenderThumbnail post={result.data} />
-              <p>
-                Posted by <b>{result.data.author}</b> in <b>{result.data.subreddit}</b>
-              </p>
-              <p>
-                <Link to={`/post/${encodeURIComponent(result.data.permalink)}`}>
-                  {result.data.score} | {result.data.num_comments} comments
-                </Link>
-              </p>
-            </li>;
-          })}
+              <SearchResultItem item={result} />
+            </li>
+          ))}
         </ul>
       )}
     </div>
