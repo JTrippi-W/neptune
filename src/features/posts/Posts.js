@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
 import useRetryCountdown from '../../utils/useRetryCountdown';
 import RenderThumbnail from '../../utils/RenderThumbnail';
+import moment from 'moment';
 
 const Posts = () => {
   const subreddit = useSelector((state) => state.subreddit);
@@ -81,6 +82,7 @@ const Posts = () => {
               <p>
                 Posted by <b>{post.data.author}</b> in <b>{post.data.subreddit}</b>
               </p>
+              <p>{moment.unix(post.data.created_utc).fromNow()}</p>
               <p>
                 <Link to={`/post/${encodeURIComponent(post.data.permalink)}`}>
                   {post.data.score} | {post.data.num_comments} comments
