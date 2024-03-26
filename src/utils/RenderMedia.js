@@ -1,6 +1,8 @@
+import DOMPurify from 'dompurify';
 import PropTypes from 'prop-types';
 
 const RenderMedia = ({ post }) => {
+  // Reddit hosted videos
   if (post.is_video && post.media && post.media.reddit_video) {
     return (
       <video controls loading="lazy">
@@ -8,11 +10,16 @@ const RenderMedia = ({ post }) => {
         Your browser does not support the video tag.
       </video>
     );
-  } else if (post.url) {
-    const isImage = /\.(jpeg|jpg|gif|png)$/.test(post.url);
-    if (isImage) {
-      return <img src={post.url} alt={post.title} loading="lazy" style={{ maxWidth: '100%' }} />;
-    }
+    // Direct image links
+  } else if (/\.(jpeg|jpg|gif|png)$/.test(post.url)) {
+    return <img src={post.url} alt={post.title} loading="lazy" />;
+  }
+  // Embedded media from other sites
+  else if (post.media_embed && post.media_embed.content) {
+    // Sanitize HTML to prevent XSS vulnerability
+    // Necessary for embedded videos and widgets from the API
+    const cleanHTML = DOMPurify.sanitize(post.media_embed.content);
+    return <div dangerouslySetInnerHTML={{ __html: cleanHTML }} />;
   }
 
   // media type not recognized
@@ -26,6 +33,9 @@ RenderMedia.propTypes = {
       reddit_video: PropTypes.shape({
         fallback_url: PropTypes.string
       })
+    }),
+    media_embed: PropTypes.shape({
+      content: PropTypes.string
     }),
     url: PropTypes.string,
     title: PropTypes.string
