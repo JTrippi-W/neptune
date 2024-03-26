@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { useGetSearchResultsQuery } from '../../api/redditApi';
 import { Link } from 'react-router-dom';
-import SkeletonLoader from '../../components/SkeletonLoader';
-import useRetryCountdown from '../../hooks/useRetryCountdown';
-import RenderThumbnail from '../../components/RenderThumbnail';
+import SkeletonLoader from '../../common/SkeletonLoader';
+import useRetryCountdown from '../../utils/useRetryCountdown';
+import RenderThumbnail from '../../utils/RenderThumbnail';
 
 const SearchResults = () => {
   const searchTerm = useSelector((state) => state.search);
