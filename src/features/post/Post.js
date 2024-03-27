@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useGetPostAndCommentsQuery } from '../../api/redditApi';
 import Comments from '../comments/Comments';
 import RenderMedia from '../../utils/RenderMedia';
+import generateLinkBody from './generateLinkBody';
 import { formatDistanceToNow } from 'date-fns';
 
 const Post = () => {
@@ -25,6 +26,11 @@ const Post = () => {
     );
 
   const { post, comments } = data;
+
+  // Determine if the post links to external content
+  const hasExternalLink =
+    !post.is_self && !post.is_video && /\.(jpeg|jpg|gif|png)$/.test(post.url) === false;
+
   return (
     <div>
       <section>
@@ -33,8 +39,15 @@ const Post = () => {
           Posted by {post.author} in {post.subreddit}
         </p>
         <p>{formatDistanceToNow(post.created_utc * 1000)}</p>
-        {/* Display image if it exists */}
-        <RenderMedia post={post} />
+        {/* Display image if it exists, or link to external content */}
+        {hasExternalLink ? (
+          <a href={post.url} target="_blank" rel="noopener noreferrer">
+            {/* content like an article will not have a thumbnail */}
+            {generateLinkBody(post)}
+          </a>
+        ) : (
+          <RenderMedia post={post} />
+        )}
         {post.selftext && <p>{post.selftext}</p>}
         {/* Display comments if they exist */}
         {isPostLoading && <div data-testid="comments-loading">Loading comments...</div>}
