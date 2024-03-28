@@ -10,7 +10,7 @@ export const redditApi = createApi({
       query: (subreddit = 'popular') => `r/${subreddit || 'popular'}.json`
     }),
     getPostAndComments: builder.query({
-      query: (permalink) => `${permalink}.json`,
+      query: (permalink) => `${permalink}.json?raw_json=1`,
       transformResponse: (response) => {
         const postData = response[0]?.data?.children?.[0]?.data;
         const commentsData = response[1]?.data?.children.map((child) => child.data);
