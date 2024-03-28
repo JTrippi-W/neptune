@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
+import TextWithMedia from './TextWithMedia';
 
 const Comment = ({ comment }) => {
   const postDate = new Date(comment.created_utc * 1000);
@@ -18,7 +19,6 @@ const Comment = ({ comment }) => {
       if (reply.kind === 'more') {
         return null;
       }
-
       return <Comment key={index} comment={reply.data} />;
     });
   };
@@ -29,9 +29,11 @@ const Comment = ({ comment }) => {
 
   return (
     <div>
-      <p>{comment.body}</p>
+      {/* Render comment body while handling media URLs */}
+      <TextWithMedia text={comment.body} />
       <p>Posted by {comment.author || '[deleted]'}</p>
       <p>{formatDistanceToNow(postDate)} ago</p>
+      {/* Render replies if they exist */}
       {comment.replies ? (
         <div style={{ marginLeft: '1rem' }}>{renderReplies(comment.replies)}</div>
       ) : null}
@@ -51,12 +53,13 @@ Comment.propTypes = {
         data: PropTypes.shape({
           children: PropTypes.arrayOf(
             PropTypes.shape({
-              data: PropTypes.object
+              kind: PropTypes.string.isRequired,
+              data: PropTypes.object.isRequired
             })
-          )
-        })
-      })
-    ])
+          ).isRequired
+        }).isRequired
+      }).isRequired
+    ]).isRequired
   }).isRequired
 };
 
