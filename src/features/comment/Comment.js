@@ -1,27 +1,10 @@
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 import TextWithMedia from './TextWithMedia';
+import Replies from './Replies';
 
 const Comment = ({ comment }) => {
   const postDate = new Date(comment.created_utc * 1000);
-
-  // Render replies if they exist
-  const renderReplies = (replies) => {
-    // Ensure replies exist
-    if (!replies || typeof replies === 'string' || replies.length === 0) {
-      return null;
-    }
-
-    const repliesData = replies.data?.children || [];
-
-    return repliesData.map((reply, index) => {
-      // Skip over "more" types which don't contain a comment
-      if (reply.kind === 'more') {
-        return null;
-      }
-      return <Comment key={index} comment={reply.data} />;
-    });
-  };
 
   if (!comment.body) {
     return <div>This comment has been removed.</div>;
@@ -33,10 +16,7 @@ const Comment = ({ comment }) => {
       <TextWithMedia text={comment.body} />
       <p>Posted by {comment.author || '[deleted]'}</p>
       <p>{formatDistanceToNow(postDate)} ago</p>
-      {/* Render replies if they exist */}
-      {comment.replies ? (
-        <div style={{ marginLeft: '1rem' }}>{renderReplies(comment.replies)}</div>
-      ) : null}
+      <Replies replies={comment.replies} />
     </div>
   );
 };
@@ -59,7 +39,7 @@ Comment.propTypes = {
           ).isRequired
         }).isRequired
       }).isRequired
-    ]).isRequired
+    ])
   }).isRequired
 };
 
