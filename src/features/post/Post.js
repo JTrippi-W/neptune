@@ -4,6 +4,7 @@ import PostContent from './PostContent';
 import Comments from '../comments/Comments';
 import ErrorLoadingPost from './ErrorLoadingPost';
 import PostSkeletonLoader from './PostSkeletonLoader';
+import CommentsSkeletonLoader from '../comments/CommentsSkeletonLoader';
 
 const Post = () => {
   const { encodedPermalink } = useParams();
@@ -16,7 +17,15 @@ const Post = () => {
     error: postError
   } = useGetPostAndCommentsQuery(permalink);
 
-  if (isPostLoading) return <PostSkeletonLoader />;
+  if (isPostLoading) {
+    return (
+      <>
+        <PostSkeletonLoader />
+        <hr />
+        <CommentsSkeletonLoader />
+      </>
+    );
+  }
   if (isPostError) return <ErrorLoadingPost errorMessage={postError?.data?.message} />;
 
   const { post, comments } = data;
@@ -26,6 +35,7 @@ const Post = () => {
       {isPostSuccess && (
         <>
           <PostContent post={post} />
+          <hr />
           <Comments comments={comments} />
         </>
       )}
