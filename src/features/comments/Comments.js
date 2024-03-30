@@ -1,9 +1,10 @@
 import Comment from '../comment/Comment';
 import PropTypes from 'prop-types';
+import NoCommentsYet from './NoCommentsYet';
 
 const Comments = ({ comments }) => {
   if (!comments || comments.length === 0) {
-    return <p>No comments yet.</p>;
+    return <NoCommentsYet />;
   }
 
   return (

@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
+import ReactMarkdown from 'react-markdown';
+
 const TextWithMedia = ({ text }) => {
-  const urlRegex = /(https?:\/\/\S+\.(jpg|jpeg|png|gif)\?\S+)/gi;
+  const urlRegex = /(https?:\/\/\S+\.(?:jpg|jpeg|png|gif)\?\S+)/gi;
   const parts = text.split(urlRegex);
 
   return (
@@ -18,8 +20,8 @@ const TextWithMedia = ({ text }) => {
             />
           );
         } else {
-          // Render text parts as spans
-          return <span key={`text-${index}`}>{part}</span>;
+          // Render text parts with markdown
+          return <ReactMarkdown key={`text-${index}`}>{part}</ReactMarkdown>;
         }
       })}
     </div>
