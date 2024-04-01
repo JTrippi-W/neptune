@@ -18,9 +18,9 @@ const Comment = ({ comment }) => {
       <footer>
         <p>
           Posted by <strong>u/{comment.author || '[deleted]'}</strong>{' '}
-          <time dateTime={postDate.toISOString}>
-            <b>{formatDistanceToNow(postDate)} ago</b>
-          </time>
+          {postDate && (
+            <time dateTime={`${postDate.toISOString()}`}>{formatDistanceToNow(postDate)} ago</time>
+          )}
         </p>
       </footer>
       <Replies replies={comment.replies} />
