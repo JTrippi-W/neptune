@@ -17,9 +17,7 @@ const Comment = ({ comment }) => {
       <TextWithMedia text={comment.body} mediaMetadata={comment.media_metadata} />
       <p>
         Posted by <b>{comment.author || '[deleted]'}</b>{' '}
-        <time dateTime={postDate}>
-          {formatDistanceToNow(postDate)} ago
-        </time>
+        <time dateTime={postDate.toISOString}>{formatDistanceToNow(postDate)} ago</time>
       </p>
       <Replies replies={comment.replies} />
     </div>
