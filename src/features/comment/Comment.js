@@ -13,7 +13,7 @@ const Comment = ({ comment }) => {
   return (
     <div>
       {/* Render comment body while handling media URLs */}
-      <TextWithMedia text={comment.body} />
+      <TextWithMedia text={comment.body} mediaMetadata={comment.media_metadata} />
       <p>Posted by {comment.author || '[deleted]'}</p>
       <p>{formatDistanceToNow(postDate)} ago</p>
       <Replies replies={comment.replies} />
@@ -27,6 +27,7 @@ Comment.propTypes = {
     body: PropTypes.string,
     author: PropTypes.string,
     created_utc: PropTypes.number,
+    media_metadata: PropTypes.object,
     replies: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.shape({
