@@ -12,15 +12,19 @@ const Comment = ({ comment }) => {
   }
 
   return (
-    <div>
+    <article>
       {/* Render comment body while handling media URLs */}
       <TextWithMedia text={comment.body} mediaMetadata={comment.media_metadata} />
-      <p>
-        Posted by <b>{comment.author || '[deleted]'}</b>{' '}
-        <time dateTime={postDate.toISOString}>{formatDistanceToNow(postDate)} ago</time>
-      </p>
+      <footer>
+        <p>
+          Posted by <strong>u/{comment.author || '[deleted]'}</strong>{' '}
+          <time dateTime={postDate.toISOString}>
+            <b>{formatDistanceToNow(postDate)} ago</b>
+          </time>
+        </p>
+      </footer>
       <Replies replies={comment.replies} />
-    </div>
+    </article>
   );
 };
 

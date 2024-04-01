@@ -3,13 +3,13 @@ import Replies from './Replies';
 
 const RemovedComment = ({ comment }) => {
   return (
-    <div>
+    <section>
       <p>[removed]</p>
       <p>
         Posted by <b>[deleted]</b>
       </p>
       <Replies replies={comment.replies} />
-    </div>
+    </section>
   );
 };
 
