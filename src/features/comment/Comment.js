@@ -2,20 +2,25 @@ import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 import TextWithMedia from './TextWithMedia';
 import Replies from './Replies';
+import RemovedComment from './RemovedComment';
 
 const Comment = ({ comment }) => {
   const postDate = new Date(comment.created_utc * 1000);
 
-  if (!comment.body) {
-    return <div>This comment has been removed.</div>;
+  if (!comment.body && !comment.author) {
+    return <RemovedComment comment={comment} />;
   }
 
   return (
     <div>
       {/* Render comment body while handling media URLs */}
       <TextWithMedia text={comment.body} mediaMetadata={comment.media_metadata} />
-      <p>Posted by {comment.author || '[deleted]'}</p>
-      <p>{formatDistanceToNow(postDate)} ago</p>
+      <p>
+        Posted by <b>{comment.author || '[deleted]'}</b>{' '}
+        <time dateTime={postDate}>
+          {formatDistanceToNow(postDate)} ago
+        </time>
+      </p>
       <Replies replies={comment.replies} />
     </div>
   );
