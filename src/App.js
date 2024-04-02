@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Posts from './features/posts/Posts';
@@ -10,12 +10,14 @@ function App() {
   return (
     <Router>
       <Header />
-      <Routes>
-        <Route path="/" element={<Posts />} />
-        <Route path="/r/:subreddit" element={<Posts />} />
-        <Route path="/search/:searchTerm" element={<SearchResults />} />
-        <Route path="/post/:encodedPermalink" element={<Post />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Posts />} />
+          <Route path="/r/:subreddit" element={<Posts />} />
+          <Route path="/search/:searchTerm" element={<SearchResults />} />
+          <Route path="/post/:encodedPermalink" element={<Post />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }

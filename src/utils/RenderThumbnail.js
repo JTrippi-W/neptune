@@ -22,9 +22,35 @@ const RenderThumbnail = ({ post }) => {
     imageUrl = post.url;
   }
 
+  const imageStyle = {
+    width: '100%', // Make the image fill the container width
+    height: 'auto', // Adjust the height automatically to maintain aspect ratio
+    maxWidth: '150px', // Maximum width of the image
+    maxHeight: '150px', // Maximum height of the image
+    display: 'block', // Prevent inline spacing issues
+    objectFit: 'contain', // Make sure the image is fully visible, contained within the element, with preserved aspect ratio
+    margin: '0 auto' // Center the image if it's smaller than the container
+  };
+
   if (imageUrl) {
     const unescapedImageUrl = unescapeHtml(imageUrl);
-    return <img src={unescapedImageUrl} alt={`Preview for ${post.title}`} loading="lazy" />;
+    return (
+      <div
+        style={{
+          width: '150px',
+          height: '150px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+        <img
+          src={unescapedImageUrl}
+          alt={`Preview for ${post.title}`}
+          style={imageStyle}
+          loading="lazy"
+        />
+      </div>
+    );
   }
 
   return null;
