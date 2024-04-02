@@ -1,4 +1,7 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { VariableSizeList as List } from 'react-window';
 import { useGetSubredditPostsQuery } from '../../api/redditApi';
 import { Link } from 'react-router-dom';
 import SkeletonLoader from '../../common/SkeletonLoader';
@@ -27,9 +30,17 @@ const Posts = () => {
     }
   };
 
+  const getItemSize = (index) => {
+    const post = posts?.data?.children[index]?.data;
+    if (post.thumbnail && !['self', 'default', 'image', 'nsfw'].includes(post.thumbnail)) {
+      return 350; // Height with thumbnail
+    }
+    return 200; // Text only height
+  };
+
   if (isError) {
     return (
-      <div data-testid="error-message">
+      <div>
         <p>Error occurred: {error?.data?.message || 'An unknown error has occurred'}</p>
         <p>
           The server could not find the subreddit, or it does not exist. Wait to retry, or change
@@ -65,32 +76,44 @@ const Posts = () => {
     );
   }
 
+  const Row = ({ index, style }) => {
+    const post = posts?.data?.children[index]?.data;
+    return (
+      <li style={style}>
+        <h3>{post.title}</h3>
+        <RenderThumbnail post={post} />
+        <p>
+          Posted by <b>{post.author}</b> in <b>{post.subreddit}</b>
+        </p>
+        <p>{formatDistanceToNow(post.created_utc * 1000)}</p>
+        <p>
+          <Link to={`/post/${encodeURIComponent(post.permalink)}`}>
+            {post.score} | {post.num_comments} comments
+          </Link>
+        </p>
+      </li>
+    );
+  };
+
+  Row.propTypes = {
+    index: PropTypes.number,
+    style: PropTypes.object
+  };
+
   return (
     <div>
       {isLoading &&
         Array.from({ length: 10 }).map((_, i) => (
           <SkeletonLoader key={i} data-testid={`skeleton-loader-${i}`} />
         ))}
-
       {isSuccess && (
-        <ul>
-          {posts?.data.children.map((post) => (
-            <li key={post.data.id}>
-              <h3>{post.data.title}</h3>
-              {/* Render a thumbnail if the post has one */}
-              <RenderThumbnail post={post.data} />
-              <p>
-                Posted by <b>{post.data.author}</b> in <b>{post.data.subreddit}</b>
-              </p>
-              <p>{formatDistanceToNow(post.data.created_utc * 1000)}</p>
-              <p>
-                <Link to={`/post/${encodeURIComponent(post.data.permalink)}`}>
-                  {post.data.score} | {post.data.num_comments} comments
-                </Link>
-              </p>
-            </li>
-          ))}
-        </ul>
+        <List
+          height={700}
+          itemCount={posts?.data.children.length || 0}
+          itemSize={getItemSize}
+          width={'100%'}>
+          {Row}
+        </List>
       )}
     </div>
   );
