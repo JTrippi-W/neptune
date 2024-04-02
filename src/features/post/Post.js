@@ -19,11 +19,11 @@ const Post = () => {
 
   if (isPostLoading) {
     return (
-      <>
+      <main>
         <PostSkeletonLoader />
         <hr />
         <CommentsSkeletonLoader />
-      </>
+      </main>
     );
   }
   if (isPostError) return <ErrorLoadingPost errorMessage={postError?.data?.message} />;
@@ -31,7 +31,7 @@ const Post = () => {
   const { post, comments } = data;
 
   return (
-    <div>
+    <main>
       {isPostSuccess && (
         <>
           <PostContent post={post} />
@@ -39,7 +39,7 @@ const Post = () => {
           <Comments comments={comments} />
         </>
       )}
-    </div>
+    </main>
   );
 };
 
