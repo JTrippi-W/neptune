@@ -8,11 +8,15 @@ const Comments = ({ comments }) => {
   }
 
   return (
-    <div>
-      {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
-      ))}
-    </div>
+    <section aria-label="Comments">
+      <ul>
+        {comments.map((comment) => (
+          <li key={comment.id}>
+            <Comment key={comment.id} comment={comment} />
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 };
 

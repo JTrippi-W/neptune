@@ -9,15 +9,19 @@ const Replies = ({ replies }) => {
   const repliesData = replies.data?.children || [];
 
   return (
-    <div style={{ marginLeft: '1rem' }}>
+    <ul style={{ marginLeft: '1rem' }}>
       {repliesData.map((reply, index) => {
         // Skip types that don't contain a comment
         if (reply.kind === 'more') {
           return null;
         }
-        return <Comment key={index} comment={reply.data} />;
+        return (
+          <li key={reply.id || index}>
+            <Comment key={reply.id} comment={reply.data} />
+          </li>
+        );
       })}
-    </div>
+    </ul>
   );
 };
 
