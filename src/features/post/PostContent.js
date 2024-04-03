@@ -33,7 +33,7 @@ const PostContent = ({ post }) => {
       <header className={styles.header}>
         <h2 className={styles.title}>{post.title}</h2>
         <p className={styles.metadata}>
-          Posted by <strong>{post.author}</strong> in <strong>r/{post.subreddit}</strong>
+          Posted by <strong>u/{post.author}</strong> in <strong>r/{post.subreddit}</strong>
           {' | '}
           <time dateTime={`${postDate.toISOString()}`}>{formatDistanceToNow(postDate)} ago</time>
           {post.link_flair_text && <span className={styles.linkFlair}>{post.link_flair_text}</span>}
