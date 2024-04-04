@@ -44,6 +44,9 @@ const RenderMedia = ({ post }) => {
           className={styles.reactPlayer}
           playing
           controls
+          light={true}
+          width="100%"
+          height="75%"
           onReady={handleMediaLoad}
         />
       ) : null}
