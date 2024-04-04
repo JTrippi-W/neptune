@@ -1,0 +1,84 @@
+.article {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 0.2rem;
+    background-color: rgba(6, 2, 34, 0.95);
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    color: #948de7;
+}
+
+.metadata, .comments, .points {
+    font-family: 'Fjalla One', sans-serif;
+}
+
+.comments {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #bdb1d4;
+}
+
+.metadata {
+    font-size: 1rem;
+    max-width: 50%;
+    margin: auto;
+    display: block;
+    color: #bdb1d4;
+}
+
+.points {
+    color: #bdb1d4;
+    font-size: 1rem;
+    max-width: 60%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.linkFlair {
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-right: 10px;
+    font-size: 0.8rem;
+}
+
+.arrowIcon {
+    cursor: pointer;
+}
+
+.upArrow, .downArrow {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.footer {
+    margin-top: 1rem;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid #7458a1;
+    box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.1);
+}
+
+hr {
+    border-color: #7458a1;
+    margin: 0.5rem 0;
+}
