@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { setSelectedSubreddit } from '../../features/selectedSubreddit/selectedSubredditSlice';
 import { setSearchTerm } from '../../features/SearchResults/searchTermSlice';
 import { subredditsList } from '../../utils/subredditList';
+import styles from './SubredditAutoComplete.module.css';
 
 const SubredditAutoComplete = () => {
   const inputRef = useRef(null);
@@ -74,7 +75,7 @@ const SubredditAutoComplete = () => {
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div className={styles.autoCompleteContainer}>
       <span>r/</span>
       <input
         ref={inputRef}
@@ -84,17 +85,15 @@ const SubredditAutoComplete = () => {
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
         placeholder="Enter a subreddit name"
+        className={styles.inputField}
       />
       {suggestions.length > 0 && (
-        <ul>
+        <ul className={styles.suggestionsList}>
           {suggestions.slice(0, 5).map((subreddit, index) => (
             <li
               key={subreddit}
               onClick={() => selectSubreddit(subreddit)}
-              // Remove style when css modules are built
-              style={{
-                background: index === highlightedIndex ? 'lightgray' : 'white'
-              }}>
+              className={`${styles.suggestionItem} ${index === highlightedIndex ? 'highlighted' : ''}`}>
               {subreddit}
             </li>
           ))}
