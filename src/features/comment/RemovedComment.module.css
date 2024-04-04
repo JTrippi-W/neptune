@@ -1,0 +1,23 @@
+.removedCommentSection {
+    background-color: rgba(12, 11, 22, 0.98);
+    color: #CCC;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1.25rem;
+}
+
+.removedText {
+    color: #FF6B6B;
+    font-style: italic;
+}
+
+.postedBy {
+    color: #AAA;
+    font-size: 0.875rem;
+}
+
+.bold {
+    font-weight: bold;
+    color: #FFD2D2;
+}

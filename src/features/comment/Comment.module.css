@@ -1,0 +1,24 @@
+.comment {
+    background-color: rgba(12, 11, 22, 0.9);
+    color: #DDD;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px rpx rgba(0, 0, 0, 0.2);
+}
+
+.commentBody {
+    margin-bottom: 10px;
+}
+
+.commentFooter {
+    font-size: 0.875rem;
+    color: #BBB;
+}
+
+.author, .time {
+    margin-right: 10px;
+}
+
+.strong {
+    color: #E0E0E0;
+}
