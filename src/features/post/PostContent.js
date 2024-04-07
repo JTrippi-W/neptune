@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import RenderMedia from '../../utils/RenderMedia';
 import ReactMarkdown from 'react-markdown';
 import processInlineMedia from '../../utils/processInlineMedia';
-import generateLinkBody from '../../utils/generateLinkBody';
 import { formatDistanceToNow } from 'date-fns';
-import { UpArrowIcon, DownArrowIcon } from '../../common/ArrowIcons';
+import { UpArrowButton, DownArrowButton } from '../../common/ArrowIcons';
 import styles from './PostContent.module.css';
 
 const PostContent = ({ post }) => {
@@ -16,20 +15,21 @@ const PostContent = ({ post }) => {
     ? processInlineMedia(post.selftext, post.media_metadata)
     : null;
   const hasExternalLink =
-    !post.is_self && !post.is_video && !/\.(jpeg|jpg|gif|png)$/.test(post.url);
+    !post.is_self && !post.is_video && !/\.(jpeg|jpg|gif|png)$/.test(post.url) && !post.media;
 
-  const handleUpVote = () => {
+  const handleUpVote = (event) => {
+    event.stopPropagation();
     setUpVoteFilled(!upVoteFilled);
     if (downVoteFilled) setDownVoteFilled(false);
   };
-
-  const handleDownVote = () => {
+  const handleDownVote = (event) => {
+    event.stopPropagation();
     setDownVoteFilled(!downVoteFilled);
     if (upVoteFilled) setUpVoteFilled(false);
   };
 
   return (
-    <article className={styles.article}>
+    <section className={styles.article}>
       <header className={styles.header}>
         <h2 className={styles.title}>{post.title}</h2>
         <p className={styles.metadata}>
@@ -39,23 +39,40 @@ const PostContent = ({ post }) => {
           {post.link_flair_text && <span className={styles.linkFlair}>{post.link_flair_text}</span>}
         </p>
       </header>
-      {hasExternalLink && !post.media_embed ? (
-        <a href={post.url} target="_blank" rel="noopener noreferrer">
-          {generateLinkBody(post)}
+      {hasExternalLink ? (
+        <a
+          href={post.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${post.title} - read more at ${post.domain} (opens in new window)`}
+          className={styles.externalLink}>
+          {post.title} | Read more at {post.domain}
         </a>
       ) : (
         <RenderMedia post={post} />
       )}
-      {processedText && <ReactMarkdown>{processedText}</ReactMarkdown>}
+      {processedText && (
+        <article className={styles.selfText}>
+          <ReactMarkdown>{processedText}</ReactMarkdown>
+        </article>
+      )}
       <footer className={styles.footer}>
         <p className={styles.points}>
-          <UpArrowIcon filled={upVoteFilled} onClick={handleUpVote} />
+          <UpArrowButton
+            filled={upVoteFilled}
+            onClick={(event) => handleUpVote(event)}
+            className={styles.upArrow}
+          />
           {post.score} Points | Ratio: {post.upvote_ratio}
-          <DownArrowIcon filled={downVoteFilled} onClick={handleDownVote} />
+          <DownArrowButton
+            filled={downVoteFilled}
+            onClick={(event) => handleDownVote(event)}
+            className={styles.downArrow}
+          />
         </p>
         <p className={styles.comments}>{post.num_comments} Comments</p>
       </footer>
-    </article>
+    </section>
   );
 };
 
@@ -68,6 +85,7 @@ PostContent.propTypes = {
     is_self: PropTypes.bool.isRequired,
     is_video: PropTypes.bool.isRequired,
     url: PropTypes.string.isRequired,
+    domain: PropTypes.string,
     media_embed: PropTypes.object,
     selftext: PropTypes.string,
     media_metadata: PropTypes.object,
@@ -76,7 +94,10 @@ PostContent.propTypes = {
     link_flair_text_color: PropTypes.string,
     num_comments: PropTypes.number,
     score: PropTypes.number,
-    upvote_ratio: PropTypes.number
+    upvote_ratio: PropTypes.number,
+    media: PropTypes.shape({
+      type: PropTypes.string
+    })
   }).isRequired
 };
 
