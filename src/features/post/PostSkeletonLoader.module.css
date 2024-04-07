@@ -1,0 +1,31 @@
+.postSkeleton {
+    background-color: rgba(12, 11, 22, 0.9);
+    border-radius: 0.3rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+.skeletonTitle,
+.skeletonText,
+.skeletonFooter,
+.mediaPlaceholder {
+    background-color: #2a2a3b;
+    height: 20px;
+    margin: 10px 0;
+    border-radius: 0.3rem;
+}
+
+.skeletonTitle {
+    width: 80%;
+    height: 2.5rem;
+}
+
+.skeletonText,
+.skeletonFooter {
+    width: 90%;
+}
+
+.mediaPlaceholder {
+    height: 300px;
+}

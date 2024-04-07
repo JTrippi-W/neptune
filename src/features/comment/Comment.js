@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import TextWithMedia from './TextWithMedia';
 import Replies from './Replies';
 import RemovedComment from './RemovedComment';
+import styles from './Comment.module.css';
 
 const Comment = ({ comment }) => {
   const postDate = new Date(comment.created_utc * 1000);
@@ -12,14 +13,18 @@ const Comment = ({ comment }) => {
   }
 
   return (
-    <article>
+    <article className={styles.comment}>
       {/* Render comment body while handling media URLs */}
-      <TextWithMedia text={comment.body} mediaMetadata={comment.media_metadata} />
-      <footer>
+      <section className={styles.commentBody}>
+        <TextWithMedia text={comment.body} mediaMetadata={comment.media_metadata} />
+      </section>
+      <footer className={styles.commentFooter}>
         <p>
-          Posted by <strong>u/{comment.author || '[deleted]'}</strong>{' '}
+          Posted by <strong className={styles.strong}>u/{comment.author || '[deleted]'}</strong>{' '}
           {postDate && (
-            <time dateTime={`${postDate.toISOString()}`}>{formatDistanceToNow(postDate)} ago</time>
+            <time dateTime={`${postDate.toISOString()}`} className={styles.time}>
+              {formatDistanceToNow(postDate)} ago
+            </time>
           )}
         </p>
       </footer>

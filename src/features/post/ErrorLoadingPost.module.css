@@ -1,0 +1,28 @@
+.errorContainer {
+    background-color: rgba(12, 11, 22, 0.98);
+    color: #CCC;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.errorTitle {
+    color: #FF6B6B;
+    margin-bottom: 1rem;
+}
+
+.errorMessage {
+    background-color: rgba(255, 107, 107, 0.1);
+    border-left: 5px solid #FF6B6B;
+    padding: 1rem 1.5rem;
+    color: #FFD2D2;
+    font-style: italic;
+    margin: 1rem 0;
+}
+
+.suggestion {
+    color: #BBB;
+    font-size: 0.875rem;
+}
