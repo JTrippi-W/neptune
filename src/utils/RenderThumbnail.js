@@ -1,14 +1,20 @@
 import PropTypes from 'prop-types';
+import defaultThumbnail from '../images/img-placeholder.webp';
+import styles from './RenderThumbnail.module.css';
 
 const RenderThumbnail = ({ post }) => {
+  if (!post.is_video && !post.media && !post.preview && !post.thumbnail && !post.url) {
+    return null;
+  }
+
   let imageUrl = null;
 
-  // Check for high-quality images first
-  if (post.preview && post.preview.images && post.preview.images.length > 0) {
-    imageUrl = post.preview.images[0].source.url;
-  } else if (post.thumbnail && !['self', 'default', 'image', 'nsfw'].includes(post.thumbnail)) {
+  if (post.thumbnail && !['self', 'default', 'image', 'nsfw'].includes(post.thumbnail)) {
     // Use reddit's thumbnail
     imageUrl = post.thumbnail;
+  } else if (post.preview && post.preview.images && post.preview.images.length > 0) {
+    // High quality images
+    imageUrl = post.preview.images[0].source.url;
   } else if (
     post.is_video &&
     post.media &&
@@ -22,32 +28,18 @@ const RenderThumbnail = ({ post }) => {
     imageUrl = post.url;
   }
 
-  const imageStyle = {
-    width: '100%', // Make the image fill the container width
-    height: 'auto', // Adjust the height automatically to maintain aspect ratio
-    maxWidth: '150px', // Maximum width of the image
-    maxHeight: '150px', // Maximum height of the image
-    display: 'block', // Prevent inline spacing issues
-    objectFit: 'contain', // Make sure the image is fully visible, contained within the element, with preserved aspect ratio
-    margin: '0 auto' // Center the image if it's smaller than the container
-  };
-
   if (imageUrl) {
     const unescapedImageUrl = unescapeHtml(imageUrl);
     return (
-      <div
-        style={{
-          width: '150px',
-          height: '150px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
+      <div className={styles.thumbnailContainer}>
         <img
           src={unescapedImageUrl}
           alt={`Preview for ${post.title}`}
-          style={imageStyle}
+          className={styles.thumbnail}
           loading="lazy"
+          onError={(e) => {
+            e.target.src = defaultThumbnail;
+          }}
         />
       </div>
     );
