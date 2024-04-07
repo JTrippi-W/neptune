@@ -1,7 +1,6 @@
 .article {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-    padding: 0.2rem;
     background-color: rgba(6, 2, 34, 0.95);
 }
 
@@ -9,7 +8,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1rem;
     padding: 1rem;
     border-radius: 10px;
 }
@@ -35,8 +33,8 @@
 
 .metadata {
     font-size: 1rem;
-    max-width: 50%;
-    margin: auto;
+    max-width: 75%;
+    align-self: flex-start;
     display: block;
     color: #bdb1d4;
 }
@@ -54,22 +52,24 @@
 .linkFlair {
     border-radius: 4px;
     padding: 2px 8px;
-    margin-right: 10px;
+    margin-right: 0.75rem;
     font-size: 0.8rem;
 }
 
-.arrowIcon {
+.upArrow, .downArrow {
     cursor: pointer;
+    width: 2rem;
+    height: 2rem;
 }
 
-.upArrow, .downArrow {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
+.selfText {
+    color: #bcb7f0;
+    font-size: 1rem;
+    padding: 1rem;
 }
 
 .footer {
-    margin-top: 1rem;
+    margin: 1rem;
     padding-top: 2rem;
     display: flex;
     flex-direction: column;
@@ -81,4 +81,14 @@
 hr {
     border-color: #7458a1;
     margin: 0.5rem 0;
+}
+
+.externalLink {
+    color: #bcb7f0;
+    text-decoration: underline;
+    font-size: 1.25rem;
+    padding: 1rem;
+    display: block;
+    word-wrap: break-word;
+    max-width: 100%;
 }
