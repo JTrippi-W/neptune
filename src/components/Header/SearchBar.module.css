@@ -23,6 +23,8 @@ input:focus, button:focus {
 @media (max-width: 768px) {
     .inputContainer {
         flex-direction: column;
+        width: 90%;
+        margin-left: 1.15rem;
     }
     input, button {
         width: 100%;
