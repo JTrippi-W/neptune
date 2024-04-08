@@ -5,7 +5,7 @@ import Replies from './Replies';
 import RemovedComment from './RemovedComment';
 import styles from './Comment.module.css';
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, level = 1 }) => {
   const postDate = new Date(comment.created_utc * 1000);
 
   if (!comment.body && !comment.author) {
@@ -13,7 +13,7 @@ const Comment = ({ comment }) => {
   }
 
   return (
-    <article className={styles.comment}>
+    <article className={styles.comment} aria-level={level}>
       {/* Render comment body while handling media URLs */}
       <section className={styles.commentBody}>
         <TextWithMedia text={comment.body} mediaMetadata={comment.media_metadata} />
