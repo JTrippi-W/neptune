@@ -29,7 +29,9 @@ const SearchBar = () => {
 
   return (
     <form onSubmit={handleSearch} className={styles.inputContainer} role="search">
-      <label htmlFor="search" className={styles.hidden}>Search Posts</label>
+      <label htmlFor="search" className={styles.hidden}>
+        Search Posts
+      </label>
       <input
         ref={inputRef}
         role="searchbox"
@@ -40,7 +42,9 @@ const SearchBar = () => {
         placeholder="Search Posts"
         aria-label="Search Posts"
       />
-      <button type="submit" aria-label="Submit search">Search</button>
+      <button type="submit" aria-label="Submit search">
+        Search
+      </button>
     </form>
   );
 };

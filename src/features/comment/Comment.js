@@ -53,7 +53,8 @@ Comment.propTypes = {
         }).isRequired
       }).isRequired
     ])
-  }).isRequired
+  }).isRequired,
+  level: PropTypes.number
 };
 
 export default Comment;

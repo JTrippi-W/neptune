@@ -91,7 +91,9 @@ const SubredditAutoComplete = () => {
   return (
     <form className={styles.autoCompleteContainer} ref={containerRef} role="search">
       <span>r/</span>
-      <label htmlFor="subredditSearch" className={styles.hidden}>Search for a Subreddit</label>
+      <label htmlFor="subredditSearch" className={styles.hidden}>
+        Search for a Subreddit
+      </label>
       <input
         ref={inputRef}
         id="subredditSearch"

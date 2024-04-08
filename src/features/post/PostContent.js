@@ -36,9 +36,7 @@ const PostContent = ({ post }) => {
           Posted by <strong>u/{post.author}</strong> in <strong>r/{post.subreddit}</strong>
           {' | '}
           <time dateTime={`${postDate.toISOString()}`}>
-            <span className={styles.hidden}>
-              {format(postDate, 'PPpp')}
-            </span>
+            <span className={styles.hidden}>{format(postDate, 'PPpp')}</span>
             {formatDistanceToNow(postDate)} ago
           </time>
           {post.link_flair_text && <span className={styles.linkFlair}>{post.link_flair_text}</span>}
