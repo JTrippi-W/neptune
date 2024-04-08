@@ -8,9 +8,11 @@ import styles from './SubredditAutoComplete.module.css';
 
 const SubredditAutoComplete = () => {
   const inputRef = useRef(null);
+  const containerRef = useRef(null);
   const [localSearchTerm, setLocalSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [activeDescendantId, setActiveDescendantId] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentSubreddit = useSelector((state) => state.selectedSubreddit);
@@ -19,6 +21,18 @@ const SubredditAutoComplete = () => {
   useEffect(() => {
     setLocalSearchTerm(currentSubreddit);
   }, [currentSubreddit]);
+
+  // Close the suggestion list when the user clicks outside the container
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setSuggestions([]);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [suggestions]);
 
   const handleSubredditInputChange = (e) => {
     const userInput = e.target.value;
@@ -75,11 +89,18 @@ const SubredditAutoComplete = () => {
   };
 
   return (
-    <div className={styles.autoCompleteContainer}>
+    <form className={styles.autoCompleteContainer} ref={containerRef} role="search">
       <span>r/</span>
+      <label htmlFor="subredditSearch" className={styles.hidden}>Search for a Subreddit</label>
       <input
         ref={inputRef}
+        id="subredditSearch"
         type="text"
+        role="searchbox"
+        aria-haspopup="listbox"
+        aria-label="Search for a subreddit"
+        aria-expanded={suggestions.length > 0}
+        aria-activedescendant={activeDescendantId}
         value={localSearchTerm}
         onChange={handleSubredditInputChange}
         onKeyDown={handleKeyDown}
@@ -88,18 +109,24 @@ const SubredditAutoComplete = () => {
         className={styles.inputField}
       />
       {suggestions.length > 0 && (
-        <ul className={styles.suggestionsList}>
-          {suggestions.slice(0, 5).map((subreddit, index) => (
-            <li
-              key={subreddit}
-              onClick={() => selectSubreddit(subreddit)}
-              className={`${styles.suggestionItem} ${index === highlightedIndex ? 'highlighted' : ''}`}>
-              {subreddit}
-            </li>
-          ))}
+        <ul className={styles.suggestionsList} role="listbox">
+          {suggestions.slice(0, 5).map((subreddit, index) => {
+            const itemId = `suggestion-${index}`;
+            return (
+              <li
+                role="option"
+                id={itemId}
+                key={subreddit}
+                onClick={() => selectSubreddit(subreddit)}
+                className={`${styles.suggestionItem} ${index === highlightedIndex ? 'highlighted' : ''}`}
+                onMouseOver={() => setActiveDescendantId(itemId)}>
+                {subreddit}
+              </li>
+            );
+          })}
         </ul>
       )}
-    </div>
+    </form>
   );
 };
 
