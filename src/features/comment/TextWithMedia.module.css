@@ -8,10 +8,14 @@
 
 .commentLink {
     color: #bcb7f0;
-    text-decoration: underline;
     font-size: 1.25rem;
     padding: 1rem;
     display: block;
     word-wrap: break-word;
     max-width: 100%;
+}
+
+.commentLink:hover, .commentLink:focus {
+    text-decoration: underline;
+    color: #a8bfff;
 }

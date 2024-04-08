@@ -113,7 +113,19 @@ hr {
         font-size: 1.5rem;
     }
 
+    .metadata, .comments, .points, .linkFlair {
+        font-size: 0.875rem;
+    }
+
+    .metadata, .linkFlair {
+        flex-wrap: wrap;
+    }
+
     .metadata {
         max-width: 90%;
+    }
+
+    .selfText {
+        padding: 0.5rem;
     }
 }
