@@ -33,7 +33,8 @@ Replies.propTypes = {
         children: PropTypes.arrayOf(PropTypes.object)
       })
     })
-  ])
+  ]),
+  level: PropTypes.number
 };
 
 export default Replies;
