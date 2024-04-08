@@ -28,6 +28,10 @@
     background-color: #1e1e2f;
 }
 
+input:focus, button:focus, .suggestionItem:focus {
+    outline: 2px solid #bcb7f0;
+}
+
 .hidden {
     position: absolute;
     width: 1px;
@@ -37,4 +41,11 @@
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+@media (max-width: 768px) {
+    .suggestionsList {
+        max-height: 200px;
+        overflow-y: auto;
+    }
 }

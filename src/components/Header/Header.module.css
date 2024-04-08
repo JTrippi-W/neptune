@@ -12,7 +12,7 @@
     position: absolute;
     left: 10px;
     top: 10px;
-    font-size: 2rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #948de7;
 }
@@ -58,4 +58,22 @@ li {
 
 li:hover, .suggestionHighlighted {
     background-color: #1e1e2f;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 15px;
+        flex-direction: column;
+    }
+
+    .appTitle {
+        position: static;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .searchAndAutoComplete {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
