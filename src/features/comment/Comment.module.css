@@ -7,7 +7,7 @@
 }
 
 .commentBody {
-    margin-bottom: 10px;
+    margin-bottom: 0.5rem;
 }
 
 .commentFooter {
@@ -16,9 +16,27 @@
 }
 
 .author, .time {
-    margin-right: 10px;
+    margin-right: 0.5rem;
 }
 
 .strong {
     color: #E0E0E0;
+}
+
+@media (max-width: 768px) {
+    .comment {
+        padding: 0.5rem;
+    }
+
+    .commentFooter {
+        font-size: 0.75rem;
+    }
+
+    .author, .time {
+        margin-right: 0.25rem;
+    }
+
+    .commentBody {
+        margin-bottom: 0.25rem;
+    }
 }

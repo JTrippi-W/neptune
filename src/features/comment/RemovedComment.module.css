@@ -21,3 +21,13 @@
     font-weight: bold;
     color: #FFD2D2;
 }
+
+@media (max-width: 768px) {
+    .removedCommentSection {
+        padding: 0.5rem;
+    }
+
+    .postedBy {
+        font-size: 0.75rem;
+    }
+}
