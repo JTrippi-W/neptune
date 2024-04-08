@@ -8,6 +8,9 @@ const TextWithMedia = ({ text, mediaMetadata }) => {
     () => ({
       img: ({ src, alt }) => {
         return <img src={src} alt={alt || 'Comment media'} className={styles.media} />;
+      },
+      a: ({ ...props }) => {
+        return <a {...props} className={styles.commentLink} />;
       }
     }),
     []
