@@ -20,6 +20,16 @@ input:focus, button:focus {
     outline: 2px solid #bcb7f0;
 }
 
+button:hover {
+    background-color: #a17fe0;
+    color: #fff;
+}
+
+button:active {
+    background-color: #6d3b9a;
+    color: #fff;
+}
+
 @media (max-width: 768px) {
     .inputContainer {
         flex-direction: column;
