@@ -1,0 +1,43 @@
+.commentsSkeleton {
+    height: 100%;
+    margin: 1rem;
+    padding: 1rem 1rem 0 1rem;
+    border-radius: 0.3rem;
+    background-color: rgba(12, 11, 22, 0.9);
+}
+
+.skeletonComment {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+}
+
+.skeletonAuthor,
+.skeletonText {
+    background-color: #2a2a3b;
+    height: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.3rem;
+}
+
+.skeletonAuthor {
+    width: 20%;
+    margin-bottom: 0.25rem;
+}
+
+.skeletonText {
+    width: 80%;
+    height: 0.75rem;
+}
+
+/* nested comments */
+.level0 {
+    margin-left: 0;
+}
+
+.level1 {
+    margin-left: 1rem;
+}
+
+.level2 {
+    margin-left: 2rem;
+}

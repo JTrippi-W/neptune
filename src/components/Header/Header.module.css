@@ -1,0 +1,61 @@
+.header {
+    color: #948de7;
+    background-color: rgba(6, 2, 34, 0.95);
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.appTitle {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #948de7;
+}
+
+.searchAndAutoComplete {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    gap: 25px;
+}
+
+input, button {
+    border: none;
+    background-color: transparent;
+    color: inherit;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+input {
+    flex-grow: 1;
+    background-color: #2a2a3b;
+}
+
+button {
+    cursor: pointer;
+    background-color: #948de7;
+    color: #fff;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #2a2a3b;
+    border-radius: 4px;
+}
+
+li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+li:hover, .suggestionHighlighted {
+    background-color: #1e1e2f;
+}

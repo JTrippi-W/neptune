@@ -1,7 +1,18 @@
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
+import { useMemo } from 'react';
+import styles from './TextWithMedia.module.css';
 
 const TextWithMedia = ({ text, mediaMetadata }) => {
+  const components = useMemo(
+    () => ({
+      img: ({ src, alt }) => {
+        return <img src={src} alt={alt || 'Comment media'} className={styles.media} />;
+      }
+    }),
+    []
+  );
+
   const urlRegex = /(https?:\/\/\S+\.(?:jpg|jpeg|png|gif)\?\S+)|!\[gif\]\((giphy\|\w+)\)/gi;
   const processedText = text.replace(urlRegex, (match, url, gifID) => {
     if (url) {
@@ -13,11 +24,7 @@ const TextWithMedia = ({ text, mediaMetadata }) => {
     return match;
   });
 
-  return (
-    <div>
-      <ReactMarkdown>{processedText}</ReactMarkdown>
-    </div>
-  );
+  return <ReactMarkdown components={components}>{processedText}</ReactMarkdown>;
 };
 
 TextWithMedia.propTypes = {

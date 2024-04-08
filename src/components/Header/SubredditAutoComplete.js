@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { setSelectedSubreddit } from '../../features/selectedSubreddit/selectedSubredditSlice';
 import { setSearchTerm } from '../../features/SearchResults/searchTermSlice';
 import { subredditsList } from '../../utils/subredditList';
+import styles from './SubredditAutoComplete.module.css';
 
 const SubredditAutoComplete = () => {
   const inputRef = useRef(null);
@@ -105,6 +106,7 @@ const SubredditAutoComplete = () => {
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
         placeholder="Enter a subreddit name"
+        className={styles.inputField}
       />
       {suggestions.length > 0 && (
         <ul className={styles.suggestionsList} role="listbox">

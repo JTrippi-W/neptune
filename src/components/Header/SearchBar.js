@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSearchTerm } from '../../features/SearchResults/searchTermSlice';
 import { setSelectedSubreddit } from '../../features/selectedSubreddit/selectedSubredditSlice';
+import styles from './SearchBar.module.css';
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const SearchBar = () => {
         ref={inputRef}
         role="searchbox"
         type="text"
+        id="search"
         value={localSearchTerm}
         onChange={handleSearchTermChange}
         placeholder="Search Posts"

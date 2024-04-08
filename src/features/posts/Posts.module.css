@@ -1,11 +1,11 @@
-.inputContainer {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
+.postsContainer {
+    background-color: #1e1e2f;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.hidden {
+.hiddenButFocusable {
     position: absolute;
     width: 1px;
     height: 1px;

@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import Replies from './Replies';
+import styles from './RemovedComment.module.css';
 
 const RemovedComment = ({ comment }) => {
   return (
-    <section>
-      <p>[removed]</p>
-      <p>
-        Posted by <b>[deleted]</b>
+    <section className={styles.removedCommentSection}>
+      <p className={styles.removedText}>[removed]</p>
+      <p className={styles.postedBy}>
+        Posted by <b className={styles.bold}>[deleted]</b>
       </p>
       <Replies replies={comment.replies} />
     </section>
