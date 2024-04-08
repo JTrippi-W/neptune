@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Comment from './Comment';
 
-const Replies = ({ replies }) => {
+const Replies = ({ replies, level = 1 }) => {
   if (!replies || typeof replies === 'string' || replies.length === 0) {
     return null;
   }
@@ -17,7 +17,7 @@ const Replies = ({ replies }) => {
         }
         return (
           <li key={reply.id || index}>
-            <Comment key={reply.id} comment={reply.data} />
+            <Comment key={reply.id} comment={reply.data} level={level + 1} />
           </li>
         );
       })}

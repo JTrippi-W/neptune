@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RenderMedia from '../../utils/RenderMedia';
 import ReactMarkdown from 'react-markdown';
 import processInlineMedia from '../../utils/processInlineMedia';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow, format } from 'date-fns';
 import { UpArrowButton, DownArrowButton } from '../../common/ArrowIcons';
 import styles from './PostContent.module.css';
 
@@ -35,7 +35,12 @@ const PostContent = ({ post }) => {
         <p className={styles.metadata}>
           Posted by <strong>u/{post.author}</strong> in <strong>r/{post.subreddit}</strong>
           {' | '}
-          <time dateTime={`${postDate.toISOString()}`}>{formatDistanceToNow(postDate)} ago</time>
+          <time dateTime={`${postDate.toISOString()}`}>
+            <span className={styles.hidden}>
+              {format(postDate, 'PPpp')}
+            </span>
+            {formatDistanceToNow(postDate)} ago
+          </time>
           {post.link_flair_text && <span className={styles.linkFlair}>{post.link_flair_text}</span>}
         </p>
       </header>
