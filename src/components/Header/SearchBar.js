@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSearchTerm } from '../../features/SearchResults/searchTermSlice';
@@ -8,9 +8,14 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [localSearchTerm, setLocalSearchTerm] = useState('');
+  const inputRef = useRef(null);
 
   const handleSearch = (e) => {
     e.preventDefault();
+    if (localSearchTerm.trim() === '') {
+      inputRef.current.focus();
+      return;
+    }
     dispatch(setSearchTerm(localSearchTerm));
     dispatch(setSelectedSubreddit(''));
     navigate(`/search/${encodeURIComponent(localSearchTerm)}`);
@@ -22,14 +27,18 @@ const SearchBar = () => {
   };
 
   return (
-    <form onSubmit={handleSearch}>
+    <form onSubmit={handleSearch} className={styles.inputContainer} role="search">
+      <label htmlFor="search" className={styles.hidden}>Search Posts</label>
       <input
+        ref={inputRef}
+        role="searchbox"
         type="text"
         value={localSearchTerm}
         onChange={handleSearchTermChange}
-        placeholder="Search"
+        placeholder="Search Posts"
+        aria-label="Search Posts"
       />
-      <button type="submit">Search</button>
+      <button type="submit" aria-label="Submit search">Search</button>
     </form>
   );
 };
