@@ -66,3 +66,27 @@
 .metadata, .points, .comments {
     font-family: 'Fjalla One', sans-serif;
 }
+
+@media (max-width: 768px) {
+    .post {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+        word-wrap: break-word;
+    }
+
+    .title {
+        font-size: 1.25rem;
+    }
+
+    .metadata {
+        font-size: 0.75rem;
+    }
+
+    .points {
+        font-size: 0.75rem;
+    }
+
+    .comments {
+        font-size: 0.75rem;
+    }
+}

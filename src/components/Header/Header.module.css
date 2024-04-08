@@ -74,6 +74,11 @@ li:hover, .suggestionHighlighted {
 
     .searchAndAutoComplete {
         flex-direction: column;
-        gap: 10px;
+        gap: 3px;
+    }
+    
+    .inputSeparator {
+        margin: auto;
+        text-align: center;
     }
 }

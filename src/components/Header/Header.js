@@ -8,7 +8,7 @@ const Header = () => {
       <h1 className={styles.appTitle}>Neptune</h1>
       <section className={styles.searchAndAutoComplete}>
         <SubredditAutocomplete className={styles.subredditAutoComplete} />
-        <p>or</p>
+        <p className={styles.inputSeparator}>or</p>
         <SearchBar className={styles.searchBar} />
       </section>
     </header>
