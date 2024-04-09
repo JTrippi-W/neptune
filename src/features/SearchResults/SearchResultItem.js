@@ -1,62 +1,16 @@
+import PostResult from './PostResult';
+import SubredditResult from './SubredditResult';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import RenderThumbnail from '../../utils/RenderThumbnail';
 
 // Component that renders the different types of search results
 // The search endpoint provides more types than the subreddit posts endpoint
 const SearchResultItem = ({ item }) => {
   switch (item.kind) {
     case 't3': {
-      // link/post
-      return (
-        <li key={item.data.id}>
-          <h3>{item.data.title}</h3>
-          <RenderThumbnail post={item.data} />
-          <p>
-            Posted by <b>{item.data.author}</b> in <b>{item.data.subreddit}</b>
-          </p>
-          <p>
-            <Link to={`/post/${encodeURIComponent(item.data.permalink)}`}>
-              {item.data.score} | {item.data.num_comments} comments
-            </Link>
-          </p>
-        </li>
-      );
-    }
-    case 't1': {
-      // comment
-      return (
-        <li key={item.data.id}>
-          <p>{item.data.body}</p>
-          <p>
-            Comment by <b>{item.data.author}</b> in <b>{item.data.subreddit}</b>
-          </p>
-        </li>
-      );
+      return <PostResult post={item.data} />;
     }
     case 't5': {
-      // subreddit
-      const subredditImage = item.data.header_img;
-      return (
-        <li key={item.data.id}>
-          {subredditImage && (
-            <img
-              src={subredditImage}
-              alt={item.data.display_name}
-              style={{ maxWidth: '100px', maxHeight: '100px' }}
-            />
-          )}
-          <h3>{item.data.display_name}</h3>
-          <p>{item.data.public_description}</p>
-          <p>
-            {item.data.subscribers.toLocaleString()} subscribers | {item.data.accounts_active}{' '}
-            active now
-          </p>
-          <p>
-            <Link to={`/r/${item.data.display_name}`}>Visit</Link>
-          </p>
-        </li>
-      );
+      return <SubredditResult data={item.data} />;
     }
     default:
       return null;
