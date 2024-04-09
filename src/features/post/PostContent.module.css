@@ -19,8 +19,8 @@
     color: #948de7;
 }
 
-.metadata, .comments, .points {
-    font-family: 'Fjalla One', sans-serif;
+.metadata, .comments, .points, .footer, .selfText, .externalLink {
+    font-family: 'Roboto', sans-serif;
 }
 
 .comments {
