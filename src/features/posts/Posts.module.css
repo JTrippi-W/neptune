@@ -15,3 +15,9 @@
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
+
+@media (max-width: 768px) {
+    .postsContainer {
+        padding: 0.5rem;
+    }
+}
