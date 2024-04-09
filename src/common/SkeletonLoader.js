@@ -1,22 +1,16 @@
+import styles from './SkeletonLoader.module.css';
+
 const SkeletonLoader = () => {
   return (
-    <div
-      data-testid="skeleton-loader"
-      style={{
-        border: '1px solid #ccc',
-        marginBottom: '10px',
-        padding: '20px',
-        borderRadius: '5px'
-      }}>
-      <div
-        style={{
-          backgroundColor: '#eee',
-          height: '20px',
-          marginBottom: '10px',
-          width: '70%'
-        }}></div>
-      <div style={{ backgroundColor: '#eee', height: '15px', width: '50%' }}></div>
-    </div>
+    <ul>
+      {Array.from({ length: 10 }).map((_, index) => (
+        <li key={index} className={styles.skeletonContainer}>
+          <div className={`${styles.SkeletonElement} ${styles.skeletonTitle}`}></div>
+          <div className={`${styles.SkeletonElement} ${styles.skeletonMetadata}`}></div>
+          <div className={`${styles.SkeletonElement} ${styles.skeletonFooter}`}></div>
+        </li>
+      ))}
+    </ul>
   );
 };
 
