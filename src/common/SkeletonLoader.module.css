@@ -1,0 +1,52 @@
+.skeletonContainer {
+    background-color: #2a2a3b;
+    color: #948de7;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #6741a3;
+    margin-bottom: 2rem;
+}
+
+.skeletonElement {
+    background-color: #3a3b4a;
+    height: 2rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+}
+
+.skeletonTitle {
+    background-color: #3a3b4a;
+    margin-bottom: 1rem;
+    height: 2rem;
+    width: 80%;
+}
+
+.skeletonMetadata,
+.skeletonFooter {
+    background-color: #3a3b4a;
+    height: 1rem;
+    margin-bottom: 1rem;
+    width: 60%;
+}
+
+@media (max-width: 768px) {
+    .skeletonContainer {
+        padding: 0.75rem;
+    }
+
+    .skeletonTitle,
+    .skeletonMetadata,
+    .skeletonFooter {
+        height: 0.75rem;
+    }
+
+    .skeletonTitle {
+        width: 75%;
+    }
+    
+    .skeletonMetadata,
+    .skeletonFooter {
+        width: 70%;
+    }
+}

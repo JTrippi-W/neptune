@@ -15,7 +15,7 @@ const SubredditAutoComplete = () => {
   const [activeDescendantId, setActiveDescendantId] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentSubreddit = useSelector((state) => state.selectedSubreddit);
+  const currentSubreddit = useSelector((state) => state.selectedSubreddit) || '';
 
   // The input is used as a title when the subreddit changes which can be edited in between
   useEffect(() => {
@@ -103,7 +103,7 @@ const SubredditAutoComplete = () => {
         aria-label="Search for a subreddit"
         aria-expanded={suggestions.length > 0}
         aria-activedescendant={activeDescendantId}
-        value={localSearchTerm}
+        value={localSearchTerm || ''}
         onChange={handleSubredditInputChange}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
