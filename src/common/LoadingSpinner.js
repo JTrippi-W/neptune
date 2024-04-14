@@ -6,6 +6,6 @@ const LoadingSpinner = () => {
       <div className={styles.spinner}></div>
     </div>
   );
-}
+};
 
 export default LoadingSpinner;

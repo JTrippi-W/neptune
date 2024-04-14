@@ -12,7 +12,6 @@ const SubredditAutoComplete = () => {
   const [localSearchTerm, setLocalSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  const [activeDescendantId, setActiveDescendantId] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentSubreddit = useSelector((state) => state.selectedSubreddit) || '';
@@ -117,8 +116,7 @@ const SubredditAutoComplete = () => {
                 id={itemId}
                 key={subreddit}
                 onClick={() => selectSubreddit(subreddit)}
-                className={`${styles.suggestionItem} ${index === highlightedIndex ? 'highlighted' : ''}`}
-                onMouseOver={() => setActiveDescendantId(itemId)}>
+                className={`${styles.suggestionItem} ${index === highlightedIndex ? 'highlighted' : ''}`}>
                 {subreddit}
               </li>
             );

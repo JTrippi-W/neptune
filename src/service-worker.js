@@ -78,8 +78,8 @@ registerRoute(
     plugins: [
       new CacheableResponsePlugin({
         statuses: [200]
-      }),
-    ],
+      })
+    ]
   })
 );
 
@@ -89,7 +89,7 @@ registerRoute(
     cacheName: 'images',
     plugins: [
       new ExpirationPlugin({ maxEntries: 60, maxAgeSeconds: 30 * 24 * 60 * 60 }), // 30 days
-      new CacheableResponsePlugin({ statuses: [200] }),
-    ],
+      new CacheableResponsePlugin({ statuses: [200] })
+    ]
   })
 );
