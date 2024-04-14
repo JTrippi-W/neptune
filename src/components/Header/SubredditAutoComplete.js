@@ -97,11 +97,8 @@ const SubredditAutoComplete = () => {
         ref={inputRef}
         id="subredditSearch"
         type="text"
-        role="searchbox"
         aria-haspopup="listbox"
         aria-label="Search for a subreddit"
-        aria-expanded={suggestions.length > 0}
-        aria-activedescendant={activeDescendantId}
         value={localSearchTerm || ''}
         onChange={handleSubredditInputChange}
         onKeyDown={handleKeyDown}
