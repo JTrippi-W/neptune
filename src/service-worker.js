@@ -70,3 +70,25 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+registerRoute(
+  ({ request }) => request.mode === 'navigate',
+  new NetworkFirst({
+    cacheName: 'pages',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [200]
+      })
+    ]
+  })
+);
+
+registerRoute(
+  ({ request }) => request.destination === 'image',
+  new CacheFirst({
+    cacheName: 'images',
+    plugins: [
+      new ExpirationPlugin({ maxEntries: 60, maxAgeSeconds: 30 * 24 * 60 * 60 }), // 30 days
+      new CacheableResponsePlugin({ statuses: [200] })
+    ]
+  })
+);
