@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
+import styles from './PostsError.module.css';
 
 const PostsError = ({ error, countdown, retryAvailable, handleRetry, progress }) => {
   return (
-    <div data-testid="error-message">
-      <p>Error occurred: {error?.data?.message || 'An unknown error has occurred'}</p>
-      <p>
+    <div className={styles.errorContainer}>
+      <h2 className={styles.errorTitle} data-testid="error-message">
+        Error occurred:{' '}
+        {`${error?.status}: ${JSON.stringify(error?.data?.message)}` || 'An unknown error occurred'}
+      </h2>
+      <p className={styles.errorMessage}>
         The server could not find what you are looking for, or it does not exist. Wait to retry, or
         change what is typed.
       </p>
@@ -29,7 +33,9 @@ const PostsError = ({ error, countdown, retryAvailable, handleRetry, progress })
           </div>
         )}
         {retryAvailable ? (
-          <button onClick={handleRetry}>Retry</button>
+          <button onClick={handleRetry} className={styles.retryButton}>
+            Retry
+          </button>
         ) : (
           <span>Retry in {countdown} seconds</span>
         )}
@@ -42,7 +48,8 @@ PostsError.propTypes = {
   error: PropTypes.shape({
     data: PropTypes.shape({
       message: PropTypes.string
-    })
+    }),
+    status: PropTypes.string
   }),
   countdown: PropTypes.number,
   retryAvailable: PropTypes.bool,

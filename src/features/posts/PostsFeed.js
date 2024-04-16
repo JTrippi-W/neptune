@@ -6,10 +6,10 @@ import styles from './PostsFeed.module.css';
 
 const PostsFeed = ({ posts }) => {
   return (
-    <ul className={styles.feed}>
+    <ul className={styles.feed} data-testid="posts-container">
       {posts?.data.children.map((post) => (
         <li key={post.data.id} className={styles.post}>
-          <Link to={`/post/${post.data.id}`} className={styles.link}>
+          <Link to={`/post/${post.data.id}`} className={styles.link} data-testid="post-link">
             <h3 className={styles.title}>{post.data.title}</h3>
             <RenderThumbnail post={post.data} />
             <p className={styles.metadata}>

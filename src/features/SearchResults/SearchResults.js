@@ -41,7 +41,7 @@ const SearchResults = () => {
   return (
     <section className={styles.resultsContainer}>
       {isSuccess && (
-        <ul className={styles.list}>
+        <ul className={styles.list} data-testid="search-results">
           {searchResults?.data.children.map((result) => (
             <li key={result.data.id}>
               <SearchResultItem item={result} />

@@ -105,6 +105,7 @@ const SubredditAutoComplete = () => {
         onBlur={handleBlur}
         placeholder="Enter a subreddit name"
         className={styles.inputField}
+        data-testid="subreddit-input"
       />
       {suggestions.length > 0 && (
         <ul className={styles.suggestionsList} role="listbox">
