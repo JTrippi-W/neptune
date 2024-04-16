@@ -29,7 +29,7 @@ const PostContent = ({ post }) => {
   };
 
   return (
-    <section className={styles.article}>
+    <section className={styles.article} data-testid="post-content">
       <header className={styles.header}>
         <h2 className={styles.title}>{post.title}</h2>
         <p className={styles.metadata}>
