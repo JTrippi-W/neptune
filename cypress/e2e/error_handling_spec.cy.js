@@ -11,6 +11,9 @@ describe('Error Handling for Posts and Post', () => {
 
     cy.wait('@getPostsFail');
 
-    cy.findByTestId('error-message').should('include.text', 'Error occurred: 500: "Internal Server Error"');
+    cy.findByTestId('error-message').should(
+      'include.text',
+      'Error occurred: 500: "Internal Server Error"'
+    );
   });
 });
