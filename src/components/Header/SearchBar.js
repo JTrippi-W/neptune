@@ -41,6 +41,7 @@ const SearchBar = () => {
         onChange={handleSearchTermChange}
         placeholder="Search Posts"
         aria-label="Search Posts"
+        data-testid="search-input"
       />
       <button type="submit" aria-label="Submit search">
         Search
